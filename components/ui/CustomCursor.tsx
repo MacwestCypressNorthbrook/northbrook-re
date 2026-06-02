@@ -88,14 +88,26 @@ export default function CustomCursor() {
       {/* Outer ring */}
       <div
         ref={ringRef}
-        className="absolute rounded-full border border-accent/50"
-        style={{ width: 40, height: 40, top: -20, left: -20 }}
+        className="absolute rounded-full border border-accent/65"
+        style={{
+          width: 40,
+          height: 40,
+          top: -20,
+          left: -20,
+          boxShadow: "0 0 0 1.5px rgba(255, 255, 255, 0.8), inset 0 0 0 1px rgba(255, 255, 255, 0.25)",
+        }}
       />
       {/* Inner dot */}
       <div
         ref={dotRef}
         className="absolute rounded-full bg-accent"
-        style={{ width: 6, height: 6, top: -3, left: -3, boxShadow: "0 0 8px hsl(339 100% 29% / 0.6)" }}
+        style={{
+          width: 6,
+          height: 6,
+          top: -3,
+          left: -3,
+          boxShadow: "0 0 8px hsl(339 100% 29% / 0.65), 0 0 0 1px rgba(255, 255, 255, 0.95)",
+        }}
       />
     </div>,
     document.body

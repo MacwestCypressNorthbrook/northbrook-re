@@ -94,6 +94,7 @@ export default function Stats() {
                   src={stat.image}
                   alt={stat.label}
                   fill
+                  sizes="(max-width: 768px) 100vw, 25vw"
                   className="object-cover opacity-100 md:opacity-50 transition-all duration-700 group-hover:scale-105 md:group-hover:opacity-80"
                 />
                 {/* Stronger gradient on mobile so text is always legible */}

@@ -117,6 +117,7 @@ export default function Navbar() {
               src="/images/logo.png"
               alt="North-Brook Ltd."
               fill
+              sizes="(max-width: 640px) 160px, (max-width: 1024px) 190px, 210px"
               className="object-contain object-left"
               priority
             />

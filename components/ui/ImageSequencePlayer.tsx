@@ -27,8 +27,8 @@ export default function ImageSequencePlayer({
 
   // Use cache progress if this is the hero sequence, otherwise count from scratch
   const useCache = frameCount === CACHE_FRAME_COUNT;
-  const initialLoaded = useCache ? Math.round(getFrameLoadProgress() * frameCount) : 0;
-  const [imagesLoaded, setImagesLoaded] = useState(initialLoaded);
+  // Initialize to 0 for hydration safety. We update this in useEffect.
+  const [imagesLoaded, setImagesLoaded] = useState(0);
 
   useEffect(() => {
     if (useCache) {

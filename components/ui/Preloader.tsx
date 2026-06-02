@@ -10,7 +10,6 @@ export default function Preloader() {
   const [percentage, setPercentage] = useState(0);
   const [skip, setSkip] = useState(false);
 
-  // Skip preloader on return visits — only show once per session
   useEffect(() => {
     if (sessionStorage.getItem("nb_preloader_seen")) {
       setSkip(true);
@@ -27,7 +26,6 @@ export default function Preloader() {
       if (skip) return;
 
       const prefersReduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-      // Reduced motion: instant complete
       if (prefersReduced) {
         if (containerRef.current) containerRef.current.style.display = "none";
         (window as any).__preloaderDone = true;
@@ -35,44 +33,46 @@ export default function Preloader() {
         return;
       }
 
-      const DURATION = 1.4; // was 2.5s — shaves 1.1s off Speed Index
-
+      const DURATION = 1.2; // Optimized slightly more from 1.4s
       const tl = gsap.timeline({
         onComplete: () => {
-          gsap.to(containerRef.current, {
-            clipPath: "inset(0 0 100% 0)",
-            duration: 0.8,
-            ease: "power4.inOut",
-            onComplete: () => {
-              if (containerRef.current) containerRef.current.style.display = "none";
-              (window as any).__preloaderDone = true;
-              window.dispatchEvent(new CustomEvent("preloader:complete"));
-            }
-          });
+          if (containerRef.current) containerRef.current.style.display = "none";
+          (window as any).__preloaderDone = true;
+          window.dispatchEvent(new CustomEvent("preloader:complete"));
         }
       });
 
       const countObj = { value: 0 };
+
+      // 1. Progress counter fill
       tl.to(countObj, {
         value: 100,
         duration: DURATION,
-        ease: "power2.inOut",
+        ease: "power2.out",
         onUpdate: () => setPercentage(Math.floor(countObj.value)),
       });
 
       tl.to(progressRef.current, {
         scaleX: 1,
         duration: DURATION,
-        ease: "power2.inOut",
+        ease: "power2.out",
       }, 0);
 
+      // 2. Quickly clear preloader typography
       tl.to(".preloader-text", {
-        y: -20,
+        y: -15,
         opacity: 0,
-        stagger: 0.08,
-        duration: 0.35,
+        stagger: 0.05,
+        duration: 0.25,
         ease: "power2.in"
-      }, "+=0.1");
+      }, "-=0.15");
+
+      // 3. Reveal Hero instantly via clipPath swipe-up while text is finishing fade
+      tl.to(containerRef.current, {
+        clipPath: "inset(0 0 100% 0)",
+        duration: 0.65,
+        ease: "power4.inOut",
+      }, "-=0.1"); // Creates a beautiful overlapping reveal sequence
     },
     { scope: containerRef, dependencies: [skip] }
   );
@@ -82,7 +82,7 @@ export default function Preloader() {
   return (
     <div
       ref={containerRef}
-      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-foreground text-background"
+      className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-foreground text-background will-change-transform"
       style={{ clipPath: "inset(0 0 0% 0)" }}
     >
       <div className="relative flex flex-col items-center gap-4">

@@ -19,9 +19,9 @@ export default function Home() {
         <Stats />
       </SectionReveal>
 
-      <SectionReveal>
+      {/* <SectionReveal>
         <Process />
-      </SectionReveal>
+      </SectionReveal> */}
 
       <SectionReveal>
         <MorphTransition />
@@ -39,9 +39,9 @@ export default function Home() {
         <WorkMapSection />
       </SectionReveal> */}
 
-      <SectionReveal id="contact">
+      {/* <SectionReveal id="contact">
         <CTA />
-      </SectionReveal>
+      </SectionReveal> */}
     </>
   );
 }

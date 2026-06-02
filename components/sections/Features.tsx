@@ -120,6 +120,7 @@ export default function Features() {
                   src={feature.image}
                   alt={feature.title}
                   fill
+                  sizes="(max-width: 640px) 100vw, 50vw"
                   className="object-cover opacity-100 md:opacity-50 transition-all duration-700 md:group-hover:opacity-80"
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/55 to-black/15" />
