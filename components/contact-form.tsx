@@ -72,9 +72,26 @@ export function ContactForm() {
     const errs = validate(form)
     if (Object.keys(errs).length > 0) { setErrors(errs); return }
     setSubmitting(true)
-    await new Promise((r) => setTimeout(r, 800))
-    setSubmitting(false)
-    setSubmitted(true)
+    try {
+      const response = await fetch("/api/contact", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(form),
+      })
+      if (!response.ok) {
+        throw new Error("Network response was not ok")
+      }
+      setSubmitted(true)
+    } catch (err) {
+      setErrors((prev) => ({
+        ...prev,
+        message: "Failed to send dispatch. Please retry or contact us directly at info@northbrook.com.gh",
+      }))
+    } finally {
+      setSubmitting(false)
+    }
   }
 
   if (submitted) {

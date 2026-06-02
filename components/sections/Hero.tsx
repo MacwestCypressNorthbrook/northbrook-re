@@ -107,10 +107,14 @@ export default function Hero() {
   }, { scope: containerRef });
 
   return (
-    <section
-      ref={containerRef}
-      className="relative h-dvh w-full bg-background overflow-hidden"
-    >
+    <>
+      {/* Prioritize first hero frame so it's available before JS runs */}
+      <link rel="preload" as="image" href="/hero/frame_001.webp" />
+      
+      <section
+        ref={containerRef}
+        className="relative h-dvh w-full bg-background overflow-hidden"
+      >
       {/* Fallback First Frame / Background Base — Prevents blank space while player boots */}
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
@@ -146,10 +150,13 @@ export default function Hero() {
         </div>
 
         <div className="w-full max-w-[90vw] sm:max-w-[60vw] lg:max-w-[520px] flex flex-col gap-4 sm:gap-6">
-          <h1 ref={titleRef} className="font-display text-[clamp(3.5rem,8vw,7rem)] font-black tracking-tighter leading-[0.82] uppercase text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
+          <h1 ref={titleRef} className="whitespace-nowrap font-display text-[clamp(3.5rem,8vw,7rem)] font-black tracking-tighter leading-[1] uppercase text-white drop-shadow-[0_2px_20px_rgba(0,0,0,0.5)]">
             Precision
             <br />
-            <span className="text-accent italic">In Motion.</span>
+            <span className="text-accent">In</span>
+            <br />
+            <span className="text-accent">Motion.</span>
+
           </h1>
 
           <p ref={subRef} className="text-sm sm:text-base text-white/80 font-medium leading-relaxed max-w-xs drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)] opacity-0 translate-y-5">
@@ -189,5 +196,6 @@ export default function Hero() {
         </div>
       </div>
     </section>
+  </>
   );
 }

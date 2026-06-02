@@ -26,10 +26,10 @@ export default function Home() {
       <SectionReveal>
         <MorphTransition />
       </SectionReveal>
-
+      {/* 
       <SectionReveal id="services">
         <Features />
-      </SectionReveal>
+      </SectionReveal> */}
 
       <SectionReveal id="projects">
         <Showcase />

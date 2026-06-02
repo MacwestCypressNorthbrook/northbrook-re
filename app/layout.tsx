@@ -8,7 +8,7 @@ import ScrollProgress from "@/components/ui/ScrollProgress";
 import Navbar from "@/components/nav/Navbar";
 import Preloader from "@/components/ui/Preloader";
 import Footer from "@/components/sections/Footer";
-
+import { Analytics } from "@vercel/analytics/next"
 const inter = Inter({
   subsets: ["latin"],
   variable: "--font-inter",
@@ -80,10 +80,6 @@ export default function RootLayout({
       suppressHydrationWarning
       className={`${inter.variable} ${fontSans.variable} ${fontMono.variable} font-sans antialiased`}
     >
-      <head>
-        {/* Prioritize first hero frame so it's available before JS runs */}
-        <link rel="preload" as="image" href="/hero/frame_001.webp" />
-      </head>
       <body className="bg-background text-foreground selection:bg-accent selection:text-white">
         <script
           type="application/ld+json"
@@ -131,7 +127,10 @@ export default function RootLayout({
           <ScrollProgress />
           <CustomCursor />
           <main>{children}</main>
+
           <Footer />
+          <Analytics />
+
         </GSAPProvider>
       </body>
     </html>
