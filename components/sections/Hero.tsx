@@ -9,6 +9,11 @@ import ImageSequencePlayer from "@/components/ui/ImageSequencePlayer";
 import Link from "next/link";
 import RequestQuoteLink from "../request-quote-link";
 
+// 32x18 blurred still of frame_001, inlined so the hero never paints empty
+// while the 220-frame sequence downloads. Same ship, same framing, ~1 KB.
+const HERO_LQIP =
+  "data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAASABIAAD/4QBMRXhpZgAATU0AKgAAAAgAAYdpAAQAAAABAAAAGgAAAAAAA6ABAAMAAAABAAEAAKACAAQAAAABAAAAIKADAAQAAAABAAAAEgAAAAD/7QA4UGhvdG9zaG9wIDMuMAA4QklNBAQAAAAAAAA4QklNBCUAAAAAABDUHYzZjwCyBOmACZjs+EJ+/8AAEQgAEgAgAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/bAEMABwcHBwcHDAcHDBEMDAwRFxEREREXHhcXFxcXHiQeHh4eHh4kJCQkJCQkJCsrKysrKzIyMjIyODg4ODg4ODg4OP/bAEMBCQkJDg0OGQ0NGTsoISg7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7Ozs7O//dAAQAAv/aAAwDAQACEQMRAD8A9iXxV4bJx9sT8j/hXj+t/EXV7jUp7O12Lal/LQR8lk3bSWPuMntgVyKz7X3EeYPb+lc1qFlBqd6z6cAMY3Y6gnufrXTUopK6Zz0aspOzR67oHxE1lNThs9QVHtnk8pt3DIucBgc8478V7KPEOhHpdx/nXgumeFND0G53axcoJQmVVjzn+906DrjFILy3eYmAkoTxnGazowU0aYicqbtY/9Dho0T7Qy7Rjyzxj61xk5MepK0fynfjI47120X/AB8t/wBcz/M1xN1/yEV/66f1rtq7HHR3Ohs3eTUw7ksxzknkniuzgAVxgY4X9RXFWH/IRX8f5V20P3x9F/lSo/CTW+I//9k=";
+
 export default function Hero() {
   const containerRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -116,6 +121,10 @@ export default function Hero() {
         className="relative h-dvh w-full bg-background overflow-hidden"
       >
       {/* Fallback First Frame / Background Base — Prevents blank space while player boots */}
+      <div
+        className="absolute inset-0 z-0 scale-110 bg-cover bg-center blur-2xl"
+        style={{ backgroundImage: `url('${HERO_LQIP}')` }}
+      />
       <div
         className="absolute inset-0 z-0 bg-cover bg-center"
         style={{ backgroundImage: "url('/hero/frame_001.webp')" }}

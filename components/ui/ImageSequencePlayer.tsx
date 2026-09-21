@@ -159,14 +159,14 @@ export default function ImageSequencePlayer({
 
       {/* Loading State Beat */}
       {imagesLoaded < frameCount && (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-background z-50">
-          <div className="w-64 h-px bg-foreground/10 relative overflow-hidden">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-linear-to-t from-black/60 via-black/20 to-transparent z-50">
+          <div className="w-64 h-px bg-white/15 relative overflow-hidden mt-auto">
             <div
               className="absolute top-0 left-0 h-full bg-accent transition-all duration-300"
               style={{ width: `${(imagesLoaded / frameCount) * 100}%` }}
             />
           </div>
-          <div className="mt-8 font-mono text-[9px] uppercase tracking-[0.4em] text-accent">
+          <div className="mt-4 mb-10 font-mono text-[9px] uppercase tracking-[0.4em] text-white/70">
             Initializing High-Fidelity Sequence: {Math.floor((imagesLoaded / frameCount) * 100)}%
           </div>
         </div>
