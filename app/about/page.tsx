@@ -50,6 +50,33 @@ const pillars = [
   },
 ]
 
+const values = [
+  {
+    title: "Customer-Centric",
+    body: "We place our clients at the heart of everything we do, designing tailored and responsive services that address unique operational requirements and deliver measurable results.",
+  },
+  {
+    title: "Innovation & Solutions",
+    body: "We embrace emerging technologies and forward-thinking approaches, ensuring our solutions evolve in line with the dynamic needs of the maritime and offshore industries.",
+  },
+  {
+    title: "Operational Excellence",
+    body: "Our commitment is to superior performance across every service line. From logistics coordination to technical support, we focus on efficiency, accuracy, and reliability at every stage.",
+  },
+  {
+    title: "Adaptability",
+    body: "Through strategic alliances with international partners and a deep understanding of local markets, we deliver solutions that are both globally competitive and locally relevant.",
+  },
+  {
+    title: "Safety & Compliance",
+    body: "We uphold the highest international safety standards and regulatory requirements, ensuring that every operation is secure, compliant, and audit-ready.",
+  },
+  {
+    title: "Integrity & Reliability",
+    body: "We operate with transparency, professionalism, and ethical responsibility, building long-term partnerships founded on trust and consistent delivery.",
+  },
+]
+
 const csr = [
   {
     area: "Education & Skills Development",
@@ -151,6 +178,31 @@ export default function AboutPage() {
         </div>
       </Section>
 
+      {/* Mission & Vision */}
+      <Section gray>
+        <div className="grid lg:grid-cols-2 gap-px bg-black/8 border border-black/8">
+          {[
+            {
+              label: "Our Mission",
+              body: "To deliver industry-leading onshore and offshore logistics solutions by forging mission-focused partnerships that achieve precision-guided outcomes for our clients.",
+            },
+            {
+              label: "Our Vision",
+              body: "To set the global standard in offshore and onshore logistics by pioneering innovation, operational excellence, and safety benchmarks across the sub-region.",
+            },
+          ].map((item, i) => (
+            <FadeIn key={item.label} delay={i * 0.12}>
+              <div className="h-full bg-white p-10 lg:p-14">
+                <p className="eyebrow mb-6">{item.label}</p>
+                <p className="text-2xl lg:text-3xl font-display font-light text-foreground leading-[1.35] tracking-tight">
+                  {item.body}
+                </p>
+              </div>
+            </FadeIn>
+          ))}
+        </div>
+      </Section>
+
       {/* Leadership */}
       <Section id="board">
         <FadeIn>
@@ -218,6 +270,23 @@ export default function AboutPage() {
         />
 
         <PillarGrid pillars={pillars} />
+      </Section>
+
+      {/* Core Values */}
+      <Section gray>
+        <FadeIn>
+          <p className="eyebrow mb-4">Our Core Values</p>
+          <SplitText
+            as="h2"
+            text="What we hold ourselves to."
+            by="word"
+            delay={0.1}
+            stagger={0.05}
+            className="text-4xl lg:text-6xl font-display font-bold text-foreground tracking-tight mb-14 leading-[1.05]"
+          />
+        </FadeIn>
+
+        <PillarGrid pillars={values} />
       </Section>
 
       {/* CSR */}

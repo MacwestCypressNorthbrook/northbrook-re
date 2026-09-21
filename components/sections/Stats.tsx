@@ -87,36 +87,7 @@ export default function Stats() {
         </div>
 
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 md:gap-1">
-          {STATS.map((stat, i) => (
-            <div key={stat.label} className="stat-panel relative group aspect-4/5 overflow-hidden bg-card">
-              <div className="stat-bg absolute inset-0 z-0 overflow-hidden" style={{ clipPath: "inset(0% 0 0 0)" }}>
-                <Image
-                  src={stat.image}
-                  alt={stat.label}
-                  fill
-                  sizes="(max-width: 768px) 100vw, 25vw"
-                  className="object-cover opacity-100 md:opacity-50 transition-all duration-700 group-hover:scale-105 md:group-hover:opacity-80"
-                />
-                {/* Stronger gradient on mobile so text is always legible */}
-                <div className="absolute inset-0 bg-linear-to-t from-black/90 via-black/60 to-black/20 md:from-black/80 md:via-black/30 md:to-black/10" />
-              </div>
-
-              <div className="stat-content relative z-10 flex h-full flex-col justify-end p-8">
-                <AnimatedCounter
-                  end={stat.value}
-                  suffix={stat.suffix}
-                  className="font-display text-6xl font-bold tracking-tighter lg:text-8xl text-white drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]"
-                />
-                <p className="mt-2 text-sm font-bold uppercase tracking-widest text-white/80 drop-shadow-[0_1px_4px_rgba(0,0,0,0.9)]">
-                  {stat.label}
-                </p>
-              </div>
-
-              {i < STATS.length - 1 && (
-                <div className="absolute right-0 top-0 h-full w-px bg-foreground/5" />
-              )}
-            </div>
-          ))}
+    
         </div>
       </div>
     </section>
