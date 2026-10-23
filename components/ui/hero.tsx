@@ -1,6 +1,5 @@
 "use client"
 
-import type { ReactNode } from "react"
 import { Reveal } from "@/components/ui/reveal"
 import { SplitText } from "@/components/ui/split-text"
 import { ParallaxBackground } from "@/components/ui/parallax"
@@ -10,7 +9,7 @@ interface HeroProps {
   eyebrow?: string
   heading: string
   subheading?: string
-  children?: ReactNode
+  children?: any
   dark?: boolean
   image?: string
   imageAlt?: string
