@@ -73,7 +73,10 @@ export function ContactForm() {
     if (Object.keys(errs).length > 0) { setErrors(errs); return }
     setSubmitting(true)
     try {
-      const response = await fetch("/api/contact", {
+      // Static export has no Node runtime: production posts to the PHP mail
+      // endpoint shipped in public/api/. The Next route only exists in dev.
+      const endpoint = process.env.NODE_ENV === "development" ? "/api/contact" : "/api/contact.php"
+      const response = await fetch(endpoint, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

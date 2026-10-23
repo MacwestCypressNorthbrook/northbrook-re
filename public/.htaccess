@@ -1,0 +1,65 @@
+# North-Brook Ltd. - static export (Next.js `output: export`) served from cPanel.
+# Only FileInfo-level directives are used here so the file works with
+# AllowOverride FileInfo (cPanel's default is AllowOverride All).
+
+# ---------------------------------------------------------------------------
+# Extensionless URLs
+# Next exports each route as /about.html, /projects/slug.html, ... Apache would
+# otherwise redirect /about to the RSC payload folder /about/ (no index.html).
+# ---------------------------------------------------------------------------
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # /api/contact -> /api/contact.php (mail endpoint on shared hosting)
+  RewriteRule ^api/contact$ api/contact.php [L]
+
+  # /about -> /about.html, but never shadow a folder that has its own index.html
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME}/index.html !-f
+  RewriteCond %{REQUEST_FILENAME}.html -f
+  RewriteRule ^(.*)$ $1.html [L]
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Custom 404 (Next writes 404.html at the export root)
+# ---------------------------------------------------------------------------
+ErrorDocument 404 /404.html
+
+# ---------------------------------------------------------------------------
+# Never serve dotfiles (.DS_Store, .gitkeep, ...), but keep ACME/SSL challenges
+# reachable for AutoSSL renewals.
+# ---------------------------------------------------------------------------
+RedirectMatch 404 "^/(?!\.well-known/)\."
+
+# ---------------------------------------------------------------------------
+# Caching - replaces the `headers()` config that static export no longer runs
+# ---------------------------------------------------------------------------
+<IfModule mod_headers.c>
+  <FilesMatch "\.(avif|gif|ico|jpe?g|png|svg|webp|mp4|webm|woff2?|ttf|otf)$">
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # HTML and RSC payloads are rebuilt on every deploy - always revalidate.
+  <FilesMatch "\.(html|txt)$">
+    Header set Cache-Control "public, max-age=0, must-revalidate"
+  </FilesMatch>
+
+  <FilesMatch "\.xml$">
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+  Header always set Strict-Transport-Security "max-age=31536000"
+</IfModule>
+
+# ---------------------------------------------------------------------------
+# Compression
+# ---------------------------------------------------------------------------
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/plain text/css text/xml text/csv
+  AddOutputFilterByType DEFLATE application/javascript application/json application/xml application/rss+xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>

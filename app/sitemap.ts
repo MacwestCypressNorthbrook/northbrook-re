@@ -4,6 +4,8 @@ import { team } from "@/lib/team"
 
 const BASE_URL = "https://northbrook.com.gh"
 
+export const dynamic = "force-static"
+
 export default function sitemap(): MetadataRoute.Sitemap {
   const staticRoutes: MetadataRoute.Sitemap = [
     { url: BASE_URL, lastModified: new Date("2026-05-14"), changeFrequency: "monthly", priority: 1.0 },
