@@ -1,4 +1,4 @@
-name: Build and Deploy Next.js to cPanel
+name: Verify Next.js build
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
   workflow_dispatch:
 
 jobs:
-  build-and-deploy:
+  build:
     runs-on: ubuntu-latest
     timeout-minutes: 20
     steps:
@@ -23,14 +23,5 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build static Next.js site
+      - name: Build Next.js site
         run: npm run build
-
-      - name: Deploy to cPanel via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.4.0
-        with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./out/
-          server-dir: ./
