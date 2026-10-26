@@ -204,7 +204,7 @@ export default function AboutPage() {
       </Section>
 
       {/* Leadership */}
-      <Section id="board">
+      {/* <Section id="board">
         <FadeIn>
           <p className="eyebrow mb-4">Our People</p>
           <SplitText
@@ -253,7 +253,7 @@ export default function AboutPage() {
             </FadeIn>
           ))}
         </div>
-      </Section>
+      </Section> */}
 
       {/* CEO Quote */}
       <AboutQuote />
